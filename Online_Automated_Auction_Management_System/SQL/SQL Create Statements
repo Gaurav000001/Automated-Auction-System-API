@@ -1,0 +1,54 @@
+CREATE TABLE Buyers(
+	buyer_id INT PRIMARY KEY AUTO_INCREMENT,
+	firstname VARCHAR(20) NOT NULL,
+	lastname VARCHAR(20) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	phone VARCHAR(10) UNIQUE NOT NULL,
+	country VARCHAR(30) NOT NULL,
+	registered_date DATE,
+	password VARCHAR(30) NOT NULL,
+	is_deleted TINYINT(1) DEFAULT 0
+);
+
+
+CREATE TABLE Sellers(
+	seller_id INT PRIMARY KEY AUTO_INCREMENT,
+	firstname VARCHAR(20) NOT NULL,
+	lastname VARCHAR(20) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	phone VARCHAR(10) UNIQUE NOT NULL,
+	country VARCHAR(30) NOT NULL,
+	registered_date DATE,
+	password VARCHAR(30) NOT NULL,
+	is_deleted TINYINT(1) DEFAULT 0
+);
+
+
+CREATE TABLE Category(
+	category_id INT PRIMARY KEY AUTO_INCREMENT,
+	category_name UNIQUE NOT NULL,
+	created_date DATE,
+	is_deleted TINYINT(1) DEFAULT 0
+);
+
+
+CREATE TABLE Products(
+	product_id INT PRIMARY KEY AUTO_INCREMENT,
+	category_id INT,
+	seller_id INT,
+	product_name VARCHAR(40) NOT NULL,
+	price INT NOT NULL,
+	available_quantity INT CHECK(available_quantity >= 0) NOT NULL,
+	last_updated DATE,
+	is_approved VARCHAR(10) DEFAULT('PENDING'),
+	is_deleted TINYINT(1) DEFAULT 0,
+	CONSTRAINT products_cat_id FOREIGN KEY(category_id) REFERENCES Category(category_id),
+	CONSTRAINT products_seller_id FOREIGN KEY(seller_id) REFERENCES Sellers(seller_id)
+);
+
+
+
+
+
+
+
