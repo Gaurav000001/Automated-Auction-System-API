@@ -1,22 +1,9 @@
-CREATE TABLE Buyers(
-	buyer_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Users(
+	user_id INT PRIMARY KEY AUTO_INCREMENT,
+	user_name VARCHAR(20) UNIQUE NOT NULL,
 	firstname VARCHAR(20) NOT NULL,
 	lastname VARCHAR(20) NOT NULL,
-	email VARCHAR(100) UNIQUE NOT NULL,
-	phone VARCHAR(10) UNIQUE NOT NULL,
-	country VARCHAR(30) NOT NULL,
-	registered_date DATE,
-	password VARCHAR(30) NOT NULL,
-	is_deleted TINYINT(1) DEFAULT 0
-);
-
-
-CREATE TABLE Sellers(
-	seller_id INT PRIMARY KEY AUTO_INCREMENT,
-	firstname VARCHAR(20) NOT NULL,
-	lastname VARCHAR(20) NOT NULL,
-	email VARCHAR(100) UNIQUE NOT NULL,
-	phone VARCHAR(10) UNIQUE NOT NULL,
+	mobile_no VARCHAR(10) NOT NULL,
 	country VARCHAR(30) NOT NULL,
 	registered_date DATE,
 	password VARCHAR(30) NOT NULL,
@@ -25,10 +12,8 @@ CREATE TABLE Sellers(
 
 
 CREATE TABLE Category(
-	category_id INT PRIMARY KEY AUTO_INCREMENT,
-	category_name UNIQUE NOT NULL,
-	created_date DATE,
-	is_deleted TINYINT(1) DEFAULT 0
+	category_id INT PRIMARY KEY,
+	category_name VARCHAR(30) UNIQUE NOT NULL
 );
 
 
@@ -38,13 +23,73 @@ CREATE TABLE Products(
 	seller_id INT,
 	product_name VARCHAR(40) NOT NULL,
 	price INT NOT NULL,
-	available_quantity INT CHECK(available_quantity >= 0) NOT NULL,
+	quantity INT CHECK(quantity >= 0) NOT NULL,
+	description VARCHAR(200),
 	last_updated DATE,
-	is_approved VARCHAR(10) DEFAULT('PENDING'),
+	sold_status TINYINT(1) DEFAULT 0,
 	is_deleted TINYINT(1) DEFAULT 0,
 	CONSTRAINT products_cat_id FOREIGN KEY(category_id) REFERENCES Category(category_id),
-	CONSTRAINT products_seller_id FOREIGN KEY(seller_id) REFERENCES Sellers(seller_id)
+	CONSTRAINT products_seller_id FOREIGN KEY(seller_id) REFERENCES Users(user_id)
 );
+
+
+CREATE TABLE Orders(
+	order_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT,
+	buyer_id INT,
+	bid_price INT NOT NULL,
+	order_date DATE,
+	order_status VARCHAR(30) DEFAULT('Pending Confirmation'),
+	is_canceled TINYINT(1) DEFAULT 0,
+	CONSTRAINT orders_product_id FOREIGN KEY(product_id) REFERENCES Products(product_id),
+	CONSTRAINT orders_buyer_id FOREIGN KEY(buyer_id) REFERENCES Users(user_id)
+);
+
+
+CREATE TABLE Returned_Items(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	user_id INT,
+	item_id INT,
+	status VARCHAR(10) DEFAULT('PENDING'),
+	returned_date DATE,
+	CONSTRAINT returned_item_id FOREIGN KEY(item_id) REFERENCES Products(product_id),
+	CONSTRAINT returned_user_id FOREIGN KEY(user_id) REFERENCES Users(user_id)
+);
+
+
+CREATE TABLE Transactions(
+	trans_id INT PRIMARY KEY AUTO_INCREMENT,
+	product_id INT,
+	user_id INT,
+	trans_date DATE,
+	CONSTRAINT trans_product_id FOREIGN KEY(product_id) REFERENCES Products(product_id),
+	CONSTRAINT trans_user_id FOREIGN KEY(user_id) REFERENCES Users(user_id)
+);
+	
+	
+CREATE TABLE Login_Logout_Record(
+	record_id INT PRIMARY KEY AUTO_INCREMENT,
+	user_id VARCHAR(10) NOT NULL,
+	logedin_at DATETIME,
+	logedout_at DATETIME
+);
+
+
+
+
+INSERT INTO category
+VALUES
+(1, 'Clothing'),
+(2, 'Electronics'),
+(3, 'Grocery'),
+(4, 'Miscellaneous');
+
+
+INSERT INTO Users
+(user_name, firstname, lastname, mobile_no, country, registered_date, password)
+VALUES
+(?, ?, ?, ?, ?, CURDATE(), ?)
+
 
 
 
