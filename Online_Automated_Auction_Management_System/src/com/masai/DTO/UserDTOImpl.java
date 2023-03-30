@@ -1,7 +1,7 @@
 package com.masai.DTO;
 
 public class UserDTOImpl implements UserDTO{
-	private String userId;
+	private int userId;
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -11,7 +11,7 @@ public class UserDTOImpl implements UserDTO{
 	
 	public UserDTOImpl() {}
 	
-	public UserDTOImpl(String userId, String username, String firstname, String lastname, String mobile_no, String country,
+	public UserDTOImpl(int userId, String username, String firstname, String lastname, String mobile_no, String country,
 			String password) {
 		super();
 		this.userId = userId;
@@ -25,12 +25,12 @@ public class UserDTOImpl implements UserDTO{
 	
 	
 	@Override
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 	
 	@Override
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	

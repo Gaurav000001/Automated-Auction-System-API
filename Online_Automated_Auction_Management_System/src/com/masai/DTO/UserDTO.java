@@ -2,8 +2,8 @@ package com.masai.DTO;
 
 public interface UserDTO {
 	
-	public String getUserId();
-	public void setUserId(String userId);
+	public int getUserId();
+	public void setUserId(int userId);
 	public String getUsername();
 	public void setUsername(String username);
 	public String getFirstname();

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.masai.DTO.ProductDTO;
 import com.masai.DTO.UserDTO;
 import com.masai.Exceptions.SomethingWentWrongException;
 
@@ -131,7 +132,55 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	
+	@Override
+	public boolean deleteAccount() throws SomethingWentWrongException{
+		
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("UPDATE Users SET is_deleted = 1 WHERE user_id = ? AND is_deleted = 0");
+			
+			ps.setInt(1, LogedUser.id);
+			
+			int n = ps.executeUpdate();
+			
+			if(n > 0) {
+				return true;
+			}
+			else {
+				throw new SomethingWentWrongException("Account Not Found");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+		}
+	}
 	
+	
+	@Override
+	public void addItemToSell(ProductDTO pro) throws SomethingWentWrongException{
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("INSERT INTO Products (category_id, seller_id, product_name, price, quantity, description, last_updated) VALUES (?, ?, ?, ?, ?, ?, now())");
+			
+			ps.setInt(1, pro.getCategory().getCategoryId());
+			ps.setInt(2, pro.getUser().getUserId());
+			ps.setString(3, pro.getProduct_name());
+			ps.setInt(4, pro.getPrice());
+			ps.setInt(5, pro.getQuantity());
+			ps.setString(6, pro.getDescription());
+			
+			int n = ps.executeUpdate();
+			
+			if(n <= 0) {
+				throw new SomethingWentWrongException("Not able to add item");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+		}
+	}
 	
 	
 	
@@ -144,7 +193,7 @@ public class UserDAOImpl implements UserDAO{
 		// TODO Auto-generated method stub
 		try(Connection con = DBUtils.connectToDatabase()){
 			
-			 PreparedStatement ps = con.prepareStatement("SELECT * FROM Users WHERE user_name = ?");
+			 PreparedStatement ps = con.prepareStatement("SELECT * FROM Users WHERE user_name = ? AND is_deleted = 0");
 			 ps.setString(1, username);
 			 
 			 ResultSet r = ps.executeQuery();

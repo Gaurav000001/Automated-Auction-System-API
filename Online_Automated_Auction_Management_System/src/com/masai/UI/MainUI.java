@@ -68,6 +68,7 @@ public class MainUI {
 			System.out.println("\n   "+ ConsoleColors.GREEN_BACKGROUND_BRIGHT +" LogedIn Successfully! 😁"+ ConsoleColors.RESET +"");
 			LogedUser.adminLoged = true;
 			U.recordLogin();
+			AdminUI.adminMain(sc);
 		}
 		else {
 			System.out.println("\n   "+ ConsoleColors.RED_BACKGROUND_BRIGHT +" Wrong Username OR Password! Please try again "+ ConsoleColors.RESET +"");
@@ -164,6 +165,26 @@ public class MainUI {
 			// TODO Auto-generated catch block
 			System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + " " + e.getMessage() + " "+ ConsoleColors.RESET);
 		}
+	}
+	
+	
+	public static void logout() {
+		// TODO Auto-generated method stub
+		UserDAO U = new UserDAOImpl();
+		
+		U.recordLogout();
+		System.out.println("   " +ConsoleColors.GREEN_BACKGROUND_BRIGHT + " Logedout Successfully! " + ConsoleColors.RESET);
+		MainUI.main(null);
+		
+	}
+	
+	
+	public static void exit() {
+		UserDAO U = new UserDAOImpl();
+		
+		U.recordLogout();
+		System.out.println("   " +ConsoleColors.GREEN_BACKGROUND_BRIGHT + " Logedout Successfully! " + ConsoleColors.RESET);
+		
 	}
 
 }
