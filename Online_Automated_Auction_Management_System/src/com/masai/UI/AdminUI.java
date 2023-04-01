@@ -21,17 +21,6 @@ public class AdminUI {
 	}
 	
 	
-	private static void productActivityChart(Scanner sc) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private static void transactionActivityChart(Scanner sc) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	public static void adminMain(Scanner sc) {
 		int choice;
 		
@@ -46,10 +35,10 @@ public class AdminUI {
 				showAllUsers();
 				break;
 			case 2:
-				productActivityChart(sc);
+				AdminProductActivityUI.adminProductActivityMain(sc);
 				break;
 			case 3:
-				transactionActivityChart(sc);
+				
 				break;
 			case 9:
 				MainUI.logout();

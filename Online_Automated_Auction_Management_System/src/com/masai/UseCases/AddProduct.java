@@ -20,7 +20,7 @@ public class AddProduct {
 		
 		System.out.println();
 		p.displayCategories();
-		System.out.println("   "+ ConsoleColors.RED + " Enter CategoryID from Above Table" + ConsoleColors.RESET + "\n");
+		System.out.println("   "+ ConsoleColors.RED + " Enter CategoryID from Above Table Only " + ConsoleColors.RESET + "\n");
 		
 		
 		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter categoryID: : "+ ConsoleColors.RESET +" ");
