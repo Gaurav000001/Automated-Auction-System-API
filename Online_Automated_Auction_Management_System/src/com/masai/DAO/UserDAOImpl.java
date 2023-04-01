@@ -157,32 +157,6 @@ public class UserDAOImpl implements UserDAO{
 	}
 	
 	
-	@Override
-	public void addItemToSell(ProductDTO pro) throws SomethingWentWrongException{
-		try(Connection con = DBUtils.connectToDatabase()){
-			
-			PreparedStatement ps = con.prepareStatement("INSERT INTO Products (category_id, seller_id, product_name, price, quantity, description, last_updated) VALUES (?, ?, ?, ?, ?, ?, now())");
-			
-			ps.setInt(1, pro.getCategory().getCategoryId());
-			ps.setInt(2, pro.getUser().getUserId());
-			ps.setString(3, pro.getProduct_name());
-			ps.setInt(4, pro.getPrice());
-			ps.setInt(5, pro.getQuantity());
-			ps.setString(6, pro.getDescription());
-			
-			int n = ps.executeUpdate();
-			
-			if(n <= 0) {
-				throw new SomethingWentWrongException("Not able to add item");
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
-		}
-	}
-	
-	
 	
 	
 	

@@ -25,6 +25,8 @@ CREATE TABLE Products(
 	price INT NOT NULL,
 	quantity INT CHECK(quantity >= 0) NOT NULL,
 	description VARCHAR(200),
+	start_time DATETIME,
+	end_time DATETIME,
 	last_updated DATE,
 	sold_status TINYINT(1) DEFAULT 0,
 	is_deleted TINYINT(1) DEFAULT 0,

@@ -9,12 +9,15 @@ public class ProductDTOImpl implements ProductDTO{
 	private int price;
 	private int quantity;
 	private String description;
+	private int time_span;
 	private LocalDateTime lastUpdated;
 	private int soldStatus;
 	
+	public ProductDTOImpl() {}
+	
 	
 	public ProductDTOImpl(CategoryDTO category, UserDTO user, String product_name, int price, int quantity,
-			String description, LocalDateTime lastUpdated, int soldStatus) {
+			String description, int time_span, LocalDateTime lastUpdated, int soldStatus) {
 		super();
 		this.category = category;
 		this.user = user;
@@ -22,11 +25,18 @@ public class ProductDTOImpl implements ProductDTO{
 		this.price = price;
 		this.quantity = quantity;
 		this.description = description;
+		this.time_span = time_span;
 		this.lastUpdated = lastUpdated;
 		this.soldStatus = soldStatus;
 	}
 	
 	
+	public int getTime_span() {
+		return time_span;
+	}
+	public void setTime_span(int time_span) {
+		this.time_span = time_span;
+	}
 	public CategoryDTO getCategory() {
 		return category;
 	}

@@ -3,6 +3,8 @@ package com.masai.DTO;
 import java.time.LocalDateTime;
 
 public interface ProductDTO {
+	public int getTime_span();
+	public void setTime_span(int time_span);
 	public CategoryDTO getCategory();
 	public void setCategory(CategoryDTO category);
 	public UserDTO getUser();

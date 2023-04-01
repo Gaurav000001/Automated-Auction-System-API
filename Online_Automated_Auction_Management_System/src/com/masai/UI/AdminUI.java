@@ -11,13 +11,13 @@ public class AdminUI {
 	
 	public static void showAdminTable(){
 		System.out.println();
-		System.out.println( "   +-----------------------------------------+"+"\n"
-						  + "   | 1. -> "+ ConsoleColors.GREEN +"Show all users  "+ ConsoleColors.RESET +"           	    |"+"\n"
-						  + "   | 2. -> "+ ConsoleColors.GREEN +"Products related activity  "+ ConsoleColors.RESET +"       |"+"\n"
-						  + "   | 3. -> "+ ConsoleColors.GREEN +"Transaction related activity "+ ConsoleColors.RESET +"     |"+"\n"
-						  + "   | 9. -> "+ ConsoleColors.GREEN +"Logout        "+ ConsoleColors.RESET +"                    |"+"\n"
-						  + "   | 0. -> "+ ConsoleColors.GREEN +"Exit        "+ ConsoleColors.RESET +"                      |"+"\n"
-						  + "   +-----------------------------------------+");
+		System.out.println( "   +---------------------------------------------+"+"\n"
+						  + "   | 1. -> "+ ConsoleColors.GREEN +"Show all users  "+ ConsoleColors.RESET +"           	         |"+"\n"
+						  + "   | 2. -> "+ ConsoleColors.GREEN +"Products related activity  "+ ConsoleColors.RESET +"           |"+"\n"
+						  + "   | 3. -> "+ ConsoleColors.GREEN +"Transaction related activity "+ ConsoleColors.RESET +"         |"+"\n"
+						  + "   | 9. -> "+ ConsoleColors.GREEN +"Logout        "+ ConsoleColors.RESET +"                        |"+"\n"
+						  + "   | 0. -> "+ ConsoleColors.GREEN +"Exit        "+ ConsoleColors.RESET +"                          |"+"\n"
+						  + "   +---------------------------------------------+");
 	}
 	
 	
@@ -80,7 +80,9 @@ public class AdminUI {
 
 
 
-
+	public static void main(String[] args) {
+		showAdminTable();
+	}
 
 	
 	

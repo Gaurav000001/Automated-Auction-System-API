@@ -9,6 +9,7 @@ import com.masai.DAO.UserDAOImpl;
 import com.masai.DTO.UserDTO;
 import com.masai.DTO.UserDTOImpl;
 import com.masai.Exceptions.SomethingWentWrongException;
+import com.masai.UseCases.RegisterNewUser;
 
 public class MainUI {
 	
@@ -44,18 +45,21 @@ public class MainUI {
 			break;
 			
 		case 3:
-			registerUser(sc);
+			RegisterNewUser.main(sc);
 			break;
 		case 0:
 			
 			System.out.println("\n   "+ ConsoleColors.PURPLE_BACKGROUND_BRIGHT +" Happy to have you! Come back soon!! "+ ConsoleColors.RESET +"");
 			System.exit(choice);
+			break;
+		default:
+			System.out.println("   "+ ConsoleColors.RED_BACKGROUND_BRIGHT+" Invalid Input!"+ ConsoleColors.RESET);
 			
 		}
 	}
 
 
-	static void adminLogin(Scanner sc) {
+	public static void adminLogin(Scanner sc) {
 		// TODO Auto-generated method stub
 		UserDAO U = new UserDAOImpl();
 		
@@ -77,7 +81,7 @@ public class MainUI {
 	}
 	
 	
-	static void userLogin(Scanner sc) {
+	public static void userLogin(Scanner sc) {
 		UserDAO U = new UserDAOImpl();
 		
 		System.out.print("\n   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your username: "+ ConsoleColors.RESET +" ");
@@ -102,70 +106,6 @@ public class MainUI {
 		}
 	}
 	
-	static void registerUser(Scanner sc){
-		UserDAO U = new UserDAOImpl();
-		
-		System.out.print("\n   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter username: "+ ConsoleColors.RESET +" ");
-		String username = sc.next();
-		
-		try {
-			//checking is username already taken or not
-			
-			if(U.isUsernameExists(username) == true) {
-				System.out.print(ConsoleColors.GREEN +"Username already taken try Again (Y/N): " + ConsoleColors.RESET);
-				String choice = sc.next();
-				
-				if(choice.equalsIgnoreCase("y")) {
-					registerUser(sc);
-					return;
-				}
-				else {
-					main(null);
-				}
-			}
-			
-		} catch (SomethingWentWrongException e) {
-			// TODO Auto-generated catch block
-			System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + " " + e.getMessage() + " "+ ConsoleColors.RESET);
-		}
-		
-		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your First name: "+ ConsoleColors.RESET +" ");
-		String firstname = sc.next();
-		
-		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your Last name: "+ ConsoleColors.RESET +" ");
-		String lastname = sc.next();
-		
-		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your Mobile No: "+ ConsoleColors.RESET +" ");
-		String mobile = sc.next();
-		sc.nextLine();
-		
-		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your country: "+ ConsoleColors.RESET +" ");
-		String country = sc.nextLine();
-		
-		System.out.print("   "+ ConsoleColors.BLACK_BACKGROUND_BRIGHT +" Enter your Password: "+ ConsoleColors.RESET +" ");
-		String password = sc.next();
-		
-		
-		UserDTO user = new UserDTOImpl();
-		user.setUsername(username);
-		user.setFirstname(firstname);
-		user.setLastname(lastname);
-		user.setMobile_no(mobile);
-		user.setCountry(country);
-		user.setPassword(password);
-		
-		try {
-			
-			if(U.registerUser(user)) {
-				System.out.println(ConsoleColors.GREEN_BACKGROUND_BRIGHT +" Registered Successfully! 😁" + ConsoleColors.RESET);
-				userLogin(sc);
-			}
-			
-		} catch (SomethingWentWrongException e) {
-			// TODO Auto-generated catch block
-			System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + " " + e.getMessage() + " "+ ConsoleColors.RESET);
-		}
-	}
 	
 	
 	public static void logout() {

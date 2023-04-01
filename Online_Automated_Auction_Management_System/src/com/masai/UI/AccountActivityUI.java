@@ -8,16 +8,16 @@ import com.masai.UseCases.DeleteAccount;
 import com.masai.UseCases.UpdateUserInformation;
 
 public class AccountActivityUI {
-	public static void showAccountActivityTable() {
+	static void showAccountActivityTable() {
 		System.out.println();
-		System.out.println( "   +---------------------------------------+"+"\n"
-						  + "   | 1 -> "+ ConsoleColors.GREEN +"Update Profile Details "+ ConsoleColors.RESET +"       	|"+"\n"
-						  + "   | 2 -> "+ ConsoleColors.GREEN +"Change Password "+ ConsoleColors.RESET +"            	|"+"\n"
-						  + "   | 3 -> "+ ConsoleColors.GREEN +"Delete Account "+ ConsoleColors.RESET +"         		|"+"\n"
-						  + "   | 8 -> "+ ConsoleColors.GREEN +"GO BACK "+ ConsoleColors.RESET +"            			|"+"\n"
-						  + "   | 9 -> "+ ConsoleColors.GREEN +"Logout "+ ConsoleColors.RESET +"            			|"+"\n"
-						  + "   | 0 -> "+ ConsoleColors.GREEN +"Exit "+ ConsoleColors.RESET +"            				|"+"\n"
-						  + "   +---------------------------------------+");
+		System.out.println( "   +--------------------------------------------+"+"\n"
+						  + "   | 1 -> "+ ConsoleColors.GREEN +"Update Profile Details "+ ConsoleColors.RESET +"    	        |"+"\n"
+						  + "   | 2 -> "+ ConsoleColors.GREEN +"Change Password "+ ConsoleColors.RESET +"            	        |"+"\n"
+						  + "   | 3 -> "+ ConsoleColors.GREEN +"Delete Account "+ ConsoleColors.RESET +"         	        |"+"\n"
+						  + "   | 8 -> "+ ConsoleColors.GREEN +"GO BACK "+ ConsoleColors.RESET +"            		        |"+"\n"
+						  + "   | 9 -> "+ ConsoleColors.GREEN +"Logout "+ ConsoleColors.RESET +"            		        |"+"\n"
+						  + "   | 0 -> "+ ConsoleColors.GREEN +"Exit "+ ConsoleColors.RESET +"            		        |"+"\n"
+						  + "   +--------------------------------------------+");
 	}
 	
 	public static void accountActivityMain(Scanner sc) {
@@ -54,4 +54,5 @@ public class AccountActivityUI {
 			
 		}while(choice != 0);
 	}
+
 }

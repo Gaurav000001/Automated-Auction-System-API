@@ -13,15 +13,15 @@ import com.masai.UseCases.UpdateUserInformation;
 
 public class UserUI {
 	
-	public static void showUserTable() {
+	static void showUserTable() {
 		System.out.println();
-		System.out.println( "   +------------------------------+"+"\n"
-						  + "   | 1 -> "+ ConsoleColors.GREEN +"Account Related Activity "+ ConsoleColors.RESET +"            |"+"\n"
-						  + "   | 2 -> "+ ConsoleColors.GREEN +"Product Related Activity  "+ ConsoleColors.RESET +"         |"+"\n"
+		System.out.println( "   +---------------------------------------------+"+"\n"
+						  + "   | 1 -> "+ ConsoleColors.GREEN +"Account Related Activity "+ ConsoleColors.RESET +"              |"+"\n"
+						  + "   | 2 -> "+ ConsoleColors.GREEN +"Product Related Activity  "+ ConsoleColors.RESET +"             |"+"\n"
 						  + "   | 3 -> "+ ConsoleColors.GREEN +"Transaction Related Activity  "+ ConsoleColors.RESET +"         |"+"\n"
-						  + "   | 9 -> "+ ConsoleColors.GREEN +"Logout       "+ ConsoleColors.RESET +"            |"+"\n"
-						  + "   | 0 -> "+ ConsoleColors.GREEN +"Exit       "+ ConsoleColors.RESET +"            |"+"\n"
-						  + "   +------------------------------+");
+						  + "   | 9 -> "+ ConsoleColors.GREEN +"Logout       "+ ConsoleColors.RESET +"            	         |"+"\n"
+						  + "   | 0 -> "+ ConsoleColors.GREEN +"Exit       "+ ConsoleColors.RESET +"            	         |"+"\n"
+						  + "   +---------------------------------------------+");
 	}
 	
 	public static void userMain(Scanner sc) {
@@ -38,7 +38,7 @@ public class UserUI {
 				AccountActivityUI.accountActivityMain(sc);
 				break;
 			case 2:
-				
+				ProductActivityUI.productActivityMain(sc);
 				break;
 			case 3:
 				
@@ -50,17 +50,14 @@ public class UserUI {
 				MainUI.exit();
 				System.out.print("   "+ ConsoleColors.GREEN_BACKGROUND_BRIGHT +" Thank You for using our services "+ ConsoleColors.RESET +" ");
 				System.exit(choice);
+				break;
+			default:
+				System.out.println("   "+ ConsoleColors.RED_BACKGROUND_BRIGHT+" Invalid Input!"+ ConsoleColors.RESET);
 			}
 			
 			
 		}while(choice != 0);
 	}
-
-
-
-	
-
-
 
 	
 }

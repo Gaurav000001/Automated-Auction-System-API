@@ -16,8 +16,6 @@ public interface UserDAO {
 	
 	boolean deleteAccount() throws SomethingWentWrongException;
 	
-	void addItemToSell(ProductDTO pro) throws SomethingWentWrongException;
-	
 	
 	
 	
