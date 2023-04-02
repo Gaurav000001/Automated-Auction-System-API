@@ -5,8 +5,10 @@ import java.util.Scanner;
 import com.masai.Custom.ConsoleColors;
 import com.masai.DAO.ProductDAO;
 import com.masai.DAO.ProductDAOImpl;
+import com.masai.Exceptions.NoRecordFoundException;
 import com.masai.Exceptions.SomethingWentWrongException;
 import com.masai.UseCases.AddProduct;
+import com.masai.UseCases.PurchaseAnItem;
 import com.masai.UseCases.UpdateProductDetails;
 
 public class ProductActivityUI {
@@ -45,7 +47,7 @@ public class ProductActivityUI {
 				DisplayItemsAvailableToBuy();
 				break;
 			case 4:
-				
+				PurchaseAnItem.main(sc);
 				break;
 			case 5:
 				
@@ -68,6 +70,7 @@ public class ProductActivityUI {
 			
 		}while(choice != 0);
 	}
+
 
 	public static void DisplayItemsAvailableToBuy() {
 		// TODO Auto-generated method stub

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.masai.Custom.ConsoleColors;
 import com.masai.Custom.DBTablePrinter;
 import com.masai.DTO.ProductDTO;
+import com.masai.Exceptions.NoRecordFoundException;
 import com.masai.Exceptions.SomethingWentWrongException;
 
 public class ProductDAOImpl implements ProductDAO{
@@ -112,17 +113,65 @@ public class ProductDAOImpl implements ProductDAO{
 		try(Connection con = DBUtils.connectToDatabase()){
 			
 			PreparedStatement ps = con.prepareStatement("SELECT product_id as 'PRODUCT ID', category_name as CATEGORY, product_name as 'PRODUCT NAME', PRICE, QUANTITY, DESCRIPTION "
-													  + "FROM Products p INNER JOIN category c ON p.category_id = c.category_id WHERE seller_id <> ? AND sold_status = 0 AND is_deleted = 0");
+													  + "FROM Products p INNER JOIN category c ON p.category_id = c.category_id WHERE seller_id <> ? AND end_time > now() AND sold_status = 0 AND is_deleted = 0");
 			
 			ps.setInt(1, LogedUser.id);
 			
 			ResultSet r = ps.executeQuery();
 			
 			if(DBUtils.isResultSetEmpty(r)) {
-				System.out.println("\n   "+ConsoleColors.PURPLE_BACKGROUND_BRIGHT+" At this Instance No Item is available to buy!");
+				System.out.println("\n   "+ConsoleColors.PURPLE_BACKGROUND_BRIGHT+" At this Instance No Item is available to buy! "+ConsoleColors.RESET);
 			}
 			else
 				DBTablePrinter.printResultSet(r);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+		}
+		
+	}
+
+	@Override
+	public int checkProductExistance(int proId) throws NoRecordFoundException {
+		// TODO Auto-generated method stub
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM products WHERE product_id = ? AND seller_id <> ? AND sold_status = 0 AND is_deleted = 0 AND end_time > now()");
+			ps.setInt(1, proId);
+			ps.setInt(2, LogedUser.id);
+			
+			ResultSet r = ps.executeQuery();
+			
+			if(DBUtils.isResultSetEmpty(r) == false) {
+				r.next();
+				
+				return r.getInt("price");
+			}else {
+				return 0;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new NoRecordFoundException("No Record Found");
+		}
+	}
+
+	@Override
+	public void purchaseAnItem(int proId, int bidPrice) throws SomethingWentWrongException {
+		// TODO Auto-generated method stub
+		
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("INSERT INTO Orders (product_id, buyer_id, bid_price, order_date) VALUES (?, ?, ?, CURDATE())");
+			
+			ps.setInt(1, proId);
+			ps.setInt(2, LogedUser.id);
+			ps.setInt(3, bidPrice);
+			
+			if(!(ps.executeUpdate() > 0)) {
+				throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
