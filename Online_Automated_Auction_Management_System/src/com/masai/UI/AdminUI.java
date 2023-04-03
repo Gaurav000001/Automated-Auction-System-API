@@ -38,7 +38,7 @@ public class AdminUI {
 				AdminProductActivityUI.adminProductActivityMain(sc);
 				break;
 			case 3:
-				
+				AdminTransactionActivity.AdminTransactionActivityMain(sc);
 				break;
 			case 9:
 				MainUI.logout();

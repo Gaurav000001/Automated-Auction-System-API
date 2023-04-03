@@ -1,15 +1,15 @@
 package com.masai.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import com.masai.Custom.DBTablePrinter;
-import com.masai.DTO.UserDTO;
 import com.masai.Exceptions.NoRecordFoundException;
+import com.masai.Exceptions.SomethingWentWrongException;
 
 public class AdminDAOImpl implements AdminDAO{
 
@@ -104,6 +104,80 @@ public class AdminDAOImpl implements AdminDAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new NoRecordFoundException("Something Went Wrong");
+		}
+	}
+	
+	
+	@Override
+	public void displayAllTransactions() throws SomethingWentWrongException {
+		// TODO Auto-generated method stub
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT trans_id AS 'TRANSACTION ID', p.product_id AS 'PRODUCT ID', p.product_name AS 'PRODUCT NAME', user_id AS 'USER ID', o.bid_price AS 'ORDER AMOUNT', trans_date AS 'TRANSACTION DATE' FROM Transactions t INNER JOIN Products p INNER JOIN Orders o ON t.product_id = p.product_id AND t.user_id = o.buyer_id WHERE is_canceled = 0 AND order_status = 'Success'");
+			
+			ResultSet r = ps.executeQuery();
+			
+			if(DBUtils.isResultSetEmpty(r) == false) {
+				
+				DBTablePrinter.printResultSet(r);
+			
+			}else {
+				throw new SomethingWentWrongException("No record Found");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+		}
+	}
+
+	@Override
+	public void displayTransactionsInDateRange(LocalDate start, LocalDate end) throws SomethingWentWrongException {
+		// TODO Auto-generated method stub
+		
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT trans_id AS 'TRANSACTION ID', p.product_id AS 'PRODUCT ID', p.product_name AS 'PRODUCT NAME', user_id AS 'USER ID', o.bid_price AS 'ORDER AMOUNT', trans_date AS 'TRANSACTION DATE' FROM Transactions t INNER JOIN Products p INNER JOIN Orders o ON t.product_id = p.product_id AND t.user_id = o.buyer_id WHERE is_canceled = 0 AND order_status = 'Success' AND (trans_date BETWEEN ? AND ?)");
+			ps.setDate(1, Date.valueOf(start));
+			ps.setDate(1, Date.valueOf(end));
+						
+			ResultSet r = ps.executeQuery();
+			
+			if(DBUtils.isResultSetEmpty(r) == false) {
+				
+				DBTablePrinter.printResultSet(r);
+			
+			}else {
+				throw new SomethingWentWrongException("No record Found");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
+		}
+	}
+
+	@Override
+	public void displayTransactionById(int tid) throws SomethingWentWrongException {
+		// TODO Auto-generated method stub
+		try(Connection con = DBUtils.connectToDatabase()){
+			
+			PreparedStatement ps = con.prepareStatement("SELECT p.product_id AS 'PRODUCT ID', p.product_name AS 'PRODUCT NAME', user_id AS 'USER ID', o.bid_price AS 'ORDER AMOUNT', trans_date AS 'TRANSACTION DATE' FROM Transactions t INNER JOIN Products p INNER JOIN Orders o ON t.product_id = p.product_id AND t.user_id = o.buyer_id WHERE is_canceled = 0 AND order_status = 'Success' AND trans_id = ?");
+			ps.setInt(1, tid);
+			
+			ResultSet r = ps.executeQuery();
+			
+			if(DBUtils.isResultSetEmpty(r) == false) {
+				
+				DBTablePrinter.printResultSet(r);
+			
+			}else {
+				throw new SomethingWentWrongException("No record Found");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SomethingWentWrongException("Something Went Wrong! Please try again Later!");
 		}
 	}
 

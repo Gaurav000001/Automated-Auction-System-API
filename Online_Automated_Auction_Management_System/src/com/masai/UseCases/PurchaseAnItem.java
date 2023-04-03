@@ -29,6 +29,8 @@ public class PurchaseAnItem {
 				else {
 					try {
 						pro.purchaseAnItem(proId, price);
+						
+						System.out.print("   " +ConsoleColors.GREEN_BACKGROUND_BRIGHT+" Order Placed Successfully! " +ConsoleColors.RESET);
 					} catch (SomethingWentWrongException e) {
 						// TODO Auto-generated catch block
 						System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + " " + e.getMessage() + " " + ConsoleColors.RESET);

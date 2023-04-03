@@ -25,9 +25,6 @@ public class UpdateProductDetails {
 				System.out.println("\n   "+ConsoleColors.RED_BACKGROUND_BRIGHT+" You have Entered Wrong ProductID " + ConsoleColors.RESET+" ");
 				return;
 			}
-			else {
-				System.out.println("   "+ConsoleColors.RED_BACKGROUND_BRIGHT+" Product Not Found "+ConsoleColors.RESET+" ");
-			}
 		} catch (SomethingWentWrongException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("\n   "+ConsoleColors.RED_BACKGROUND_BRIGHT+"You have Entered Wrong ProductID " + ConsoleColors.RESET);

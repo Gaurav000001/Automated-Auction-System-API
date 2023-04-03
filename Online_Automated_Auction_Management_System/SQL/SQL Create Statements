@@ -79,6 +79,11 @@ CREATE TABLE Login_Logout_Record(
 
 
 
+
+
+
+
+
 INSERT INTO category
 VALUES
 (1, 'Clothing'),
@@ -87,10 +92,6 @@ VALUES
 (4, 'Miscellaneous');
 
 
-INSERT INTO Users
-(user_name, firstname, lastname, mobile_no, country, registered_date, password)
-VALUES
-(?, ?, ?, ?, ?, CURDATE(), ?)
 
 
 
